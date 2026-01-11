@@ -2,7 +2,7 @@ import './components/global.css'
 
 import { Helmet, HelmetProvider } from 'react-helmet-async'
 import { RouterProvider } from 'react-router-dom'
-
+import { Toaster } from 'sonner'
 import { router } from './routes/routes'
 
 export function App() {
@@ -10,7 +10,7 @@ export function App() {
     <HelmetProvider>
      
         <Helmet titleTemplate="%s | pizza.shop" />
-
+          <Toaster richColors/>
           <RouterProvider router={router} />
     </HelmetProvider>
   )
