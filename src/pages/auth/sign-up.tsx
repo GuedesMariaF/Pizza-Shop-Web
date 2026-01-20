@@ -7,6 +7,8 @@ import { z } from "zod";
 import { toast } from 'sonner';
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Link, useNavigate } from 'react-router-dom'
+import { useMutation } from "@tanstack/react-query";
+import { registerRestaurant } from "@/api/register-restaurant";
 
 
 const signUpForm = z.object({
@@ -26,20 +28,31 @@ export function SignUp() {
         handleSubmit, 
         formState: { isSubmitting } 
     } = useForm<SignUpForm>({
+
         resolver: zodResolver(signUpForm),
+    })
+    const {mutateAsync: registerRestaurants} = useMutation({
+        mutationFn: registerRestaurant,
+
     })
     const navigate = useNavigate();
 
     async function handleSignUp(data: SignUpForm) {
         await new Promise((resolve) => setTimeout(resolve, 2000))
         
-        console.log(data);
-        toast.success('Cadastrado com sucesso.', {
+      
+      try{
+        await registerRestaurants(data);
+          toast.success('Cadastrado com sucesso.', {
             action:{
                 label: 'Login',
-                onClick: () => navigate('/sign-in'),
+                onClick: () => navigate(`/sign-in?email=${data.email}`),
             }
         })
+
+      } catch{
+        toast.success('Erro ao cadastrar restaurant.')
+      }
     }
 
     return (
