@@ -5,7 +5,7 @@ import { Dashboard } from "@/pages/app/dashboard/dashboard"
 import { Orders } from "@/pages/app/orders/orders"
 import { SignIn } from "@/pages/auth/sign-in"
 import { SignUp } from "@/pages/auth/sign-up"
-import { createBrowserRouter, Navigate } from "react-router-dom"
+import { createBrowserRouter } from "react-router-dom"
 
 export const router = createBrowserRouter([
   {
@@ -13,10 +13,6 @@ export const router = createBrowserRouter([
     element: <AppLayout />,
     errorElement: <NotFound/>,
     children: [
-      {
-        path: '/',
-        element: <Navigate to="/sign-in" replace />,
-      },
       {
         path: '/dashboard',
         element: <Dashboard />,
